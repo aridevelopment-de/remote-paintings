@@ -1,0 +1,4 @@
+accessWidener   v2  named
+
+# Sprite.class
+accessible method net/minecraft/client/texture/Sprite <init> (Lnet/minecraft/util/Identifier;Lnet/minecraft/client/texture/SpriteContents;IIII)V

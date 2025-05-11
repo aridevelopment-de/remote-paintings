@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "remote-paintings",
+	"version": "${version}",
+	"name": "remote-paintings",
+	"description": "Use URLs for custom paintings!",
+	"authors": [
+		"Ari24"
+	],
+	"contact": {
+		"homepage": "https://ari24.dev",
+		"sources": "https://github.com/Ari24-cb24"
+	},
+	"license": "MIT",
+	"icon": "assets/remote-paintings/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ari24.remotepaintings.RemotePaintingsMod"
+		],
+		"client": [
+			"ari24.remotepaintings.RemotePaintingsClient"
+		]
+	},
+	"mixins": [
+		"remote-paintings.mixins.json"
+	],
+	"accessWidener": "remotepaintings.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {}
+}
