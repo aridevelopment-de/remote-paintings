@@ -15,7 +15,7 @@ right from the game!
 
 <details>
 <summary><strong>Example with GIFs</strong></summary>
-[![Watch the Video](https://b.catgirlsare.sexy/SijZrVIQvaas.png)](https://youtu.be/U34k-pZf6IY)
+<a href="https://youtu.be/U34k-pZf6IY"><img width="600px" src="https://b.catgirlsare.sexy/SijZrVIQvaas.png"></a>
 </details>
 
 ## Commands
