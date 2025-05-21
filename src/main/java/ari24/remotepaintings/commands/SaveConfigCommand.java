@@ -27,9 +27,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class SaveCommand {
+public class SaveConfigCommand {
     public static LiteralArgumentBuilder<FabricClientCommandSource> register() {
-        return ClientCommandManager.literal("save")
+        return ClientCommandManager.literal("saveConfig")
             .executes(ctx -> {
                 List<RemotePaintingRegistry.Entry> paintings = RemotePaintingRegistry.getAllRemotePaintings();
                 JsonArray array = new JsonArray();
@@ -43,9 +43,10 @@ public class SaveCommand {
 
                 String hasteUrl = uploadToHaste(array);
                 if (hasteUrl != null) {
-                    ctx.getSource().sendFeedback(Text.of("Uploaded to Haste and saved to config: " + hasteUrl)
+                    ctx.getSource().sendFeedback(Text.of("Uploaded and saved: " + hasteUrl)
                             .getWithStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, hasteUrl))
-                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.of("Click to open")))).getFirst());
+                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.of("Click to open")))
+                                    .withColor(Formatting.GREEN)).getFirst());
                     RemotePaintingsMod.CONFIG.currentConfigUrl(hasteUrl);
                 } else {
                     ctx.getSource().sendError(Text.of("Failed to upload data to Haste.").getWithStyle(Style.EMPTY.withColor(Formatting.RED)).getFirst());

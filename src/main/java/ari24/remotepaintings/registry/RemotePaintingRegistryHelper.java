@@ -3,10 +3,7 @@ package ari24.remotepaintings.registry;
 import ari24.remotepaintings.RemotePaintingsMod;
 import ari24.remotepaintings.util.GifStitcher;
 import ari24.remotepaintings.util.ImageUtils;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
@@ -21,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RemotePaintingRegistryHelper {
-    public static void registerFromConfigUrl(String urlString) throws URISyntaxException, IOException {
+    public static void registerFromConfigUrl(String urlString) throws URISyntaxException, IOException, JsonSyntaxException {
         URL url = new URI(urlString).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -36,6 +33,10 @@ public class RemotePaintingRegistryHelper {
             Gson gson = new Gson();
             JsonArray array = gson.fromJson(response.toString(), JsonArray.class);
 
+            if (array == null) {
+                throw new IOException("Failed to parse JSON response from URL (might be empty?): " + urlString);
+            }
+
             for (JsonElement element : array) {
                 JsonObject obj = element.getAsJsonObject();
                 String name = obj.get("name").getAsString();
@@ -45,16 +46,8 @@ public class RemotePaintingRegistryHelper {
         }
     }
 
-    public static void registerFromUrl(String vanillaIdentifier, String url) {
-        Pair<InputStream, ContentType> inputStreamPair;
-
-        try {
-            inputStreamPair = getInputStream(url);
-        } catch (IOException | URISyntaxException e) {
-            RemotePaintingsMod.LOGGER.error("Failed to load image from URL: " + url, e);
-            return;
-        }
-
+    public static void registerFromUrl(String vanillaIdentifier, String url) throws IOException, URISyntaxException {
+        Pair<InputStream, ContentType> inputStreamPair = getInputStream(url);
         InputStream inputStream = inputStreamPair.getLeft();
         @Nullable ContentType contentType = inputStreamPair.getRight();
 
@@ -88,12 +81,7 @@ public class RemotePaintingRegistryHelper {
                 image = ImageUtils.retrievePng(inputStream);
                 break;
             case JPEG:
-                try {
-                    image = ImageUtils.retrieveGeneralImageFormat(inputStream);
-                } catch (IOException e) {
-                    RemotePaintingsMod.LOGGER.error("Failed to load JPEG from InputStream", e);
-                    return;
-                }
+                image = ImageUtils.retrieveGeneralImageFormat(inputStream);
                 break;
             default:
                 RemotePaintingsMod.LOGGER.error("Unsupported content type: " + contentType);

@@ -6,6 +6,8 @@ import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +42,7 @@ public class RemotePaintingRegistry {
         return List.copyOf(registeredPaintings.values());
     }
 
-    public static void reloadAll() {
+    public static void reloadAll() throws IOException, URISyntaxException {
         Map<Identifier, Entry> copy = new HashMap<>(registeredPaintings);
         for (Map.Entry<Identifier, Entry> entry : copy.entrySet()) {
             Identifier vanillaIdentifier = entry.getKey();

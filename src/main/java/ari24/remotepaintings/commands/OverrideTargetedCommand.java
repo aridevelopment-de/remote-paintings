@@ -15,6 +15,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public class OverrideTargetedCommand {
     public static LiteralArgumentBuilder<FabricClientCommandSource> register() {
         return ClientCommandManager.literal("overrideTargeted")
@@ -32,7 +35,18 @@ public class OverrideTargetedCommand {
                                 PaintingVariant variant = paintingEntity.getVariant().value();
                                 Identifier vanillaId = variant.assetId();
                                 String url = StringArgumentType.getString(ctx, "url");
-                                RemotePaintingRegistryHelper.registerFromUrl(vanillaId.getPath(), url);
+
+                                try {
+                                    RemotePaintingRegistryHelper.registerFromUrl(vanillaId.getPath(), url);
+                                } catch (IOException | URISyntaxException e) {
+                                    ctx.getSource().sendError(Text.of("Failed to load image from URL")
+                                            .getWithStyle(Style.EMPTY.withColor(Formatting.RED)).getFirst());
+                                    RemotePaintingsMod.LOGGER.error("Failed to load image from config URL: " + url, e);
+                                    return 0;
+                                }
+
+                                ctx.getSource().sendFeedback(Text.of("Overriding painting with URL: " + url)
+                                        .getWithStyle(Style.EMPTY.withColor(Formatting.GREEN)).getFirst());
                                 return 1;
                             }));
     }

@@ -6,7 +6,9 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class UnloadPaintingCommand {
@@ -17,7 +19,7 @@ public class UnloadPaintingCommand {
                                 RemotePaintingsMod.LOGGER.info("Unloading painting...");
                                 String vanillaId = StringArgumentType.getString(ctx, "id");
                                 RemotePaintingRegistry.unregisterRemotePainting(Identifier.ofVanilla(vanillaId));
-                                ctx.getSource().sendFeedback(Text.of("Unloaded painting with ID: " + vanillaId));
+                                ctx.getSource().sendFeedback(Text.of("Unloaded painting with ID: " + vanillaId).getWithStyle(Style.EMPTY.withColor(Formatting.GREEN)).getFirst());
                                 return 1;
                             }));
     }

@@ -13,9 +13,9 @@ import net.minecraft.util.Formatting;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class LoadCommand {
+public class LoadConfigCommand {
     public static LiteralArgumentBuilder<FabricClientCommandSource> register() {
-        return ClientCommandManager.literal("load")
+        return ClientCommandManager.literal("loadConfig")
                 .then(ClientCommandManager.argument("url", StringArgumentType.greedyString())
                     .executes(ctx -> {
                         // https://haste.pinofett.de/raw/cvx8tmaubs
@@ -23,9 +23,9 @@ public class LoadCommand {
                         try {
                             RemotePaintingRegistryHelper.registerFromConfigUrl(url);
                         } catch (URISyntaxException | IOException e) {
-                            ctx.getSource().sendError(Text.of("Failed to load image from URL: " + url)
+                            ctx.getSource().sendError(Text.of("Failed to register config from URL")
                                     .getWithStyle(Style.EMPTY.withColor(Formatting.RED)).getFirst());
-                            RemotePaintingsMod.LOGGER.error("Failed to load image from config URL: " + url, e);
+                            RemotePaintingsMod.LOGGER.error("Failed to register config from URL: " + url, e);
                             return 0;
                         }
 

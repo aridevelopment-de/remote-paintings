@@ -8,13 +8,13 @@ public class Commands {
         ClientCommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess) -> {
             dispatcher.register(ClientCommandManager.literal("remotepaintings")
                     .then(OverrideCommand.register())
-                    .then(LoadCommand.register())
+                    .then(LoadConfigCommand.register())
                     .then(ReloadConfigCommand.register())
                     .then(ReloadImagesCommand.register())
                     .then(PaintingInfoCommand.register())
                     .then(UnloadPaintingCommand.register())
                     .then(OverrideTargetedCommand.register())
-                    .then(SaveCommand.register()));
+                    .then(SaveConfigCommand.register()));
         }));
     }
 }
