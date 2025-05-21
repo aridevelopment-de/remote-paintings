@@ -88,7 +88,12 @@ public class RemotePaintingRegistryHelper {
                 image = ImageUtils.retrievePng(inputStream);
                 break;
             case JPEG:
-                image = ImageUtils.retrieveJpeg(inputStream);
+                try {
+                    image = ImageUtils.retrieveGeneralImageFormat(inputStream);
+                } catch (IOException e) {
+                    RemotePaintingsMod.LOGGER.error("Failed to load JPEG from InputStream", e);
+                    return;
+                }
                 break;
             default:
                 RemotePaintingsMod.LOGGER.error("Unsupported content type: " + contentType);
