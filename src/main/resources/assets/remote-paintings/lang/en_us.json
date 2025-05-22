@@ -1,0 +1,5 @@
+{
+  "text.config.remote-paintings-config.title": "Remote Paintings Config",
+  "text.config.remote-paintings-config.option.hasteUrl": "Hastebin Upload URL",
+  "text.config.remote-paintings-config.option.currentConfigUrl": "Current JSON config url"
+}
