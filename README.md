@@ -22,6 +22,7 @@ right from the game!
 Generally, every command is available via the ``/remotepaintings`` command and should be self-explanatory.
 
 - ``/remotepaintings paintingInfo``: Shows information about the painting being looked at
+- ``/remotepaintings info``: Shows information about every painting override
 - ``/remotepaintings override <id> <url>``: Override the specified painting id (minecraft identifier!) with the specified URL
 - ``/remotepaintings overrideTargeted <url>``: Override the painting being looked at with the specified URL
 - ``/remotepaintings unloadPainting <id>``: Unload the specified painting id (minecraft identifier!)
