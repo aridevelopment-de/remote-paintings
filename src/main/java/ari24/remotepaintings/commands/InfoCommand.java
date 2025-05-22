@@ -9,7 +9,7 @@ import net.minecraft.util.Formatting;
 
 public class InfoCommand {
     public static LiteralArgumentBuilder<FabricClientCommandSource> register() {
-        return ClientCommandManager.literal("paintingInfo")
+        return ClientCommandManager.literal("info")
                 .executes(ctx -> {
                     for (RemotePaintingRegistry.Entry entry : RemotePaintingRegistry.getAllRemotePaintings()) {
                         // [x] 1. AZTEC => (PNG) https://gif.gif.com
