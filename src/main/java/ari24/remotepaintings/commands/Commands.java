@@ -12,6 +12,7 @@ public class Commands {
                     .then(ReloadConfigCommand.register())
                     .then(ReloadImagesCommand.register())
                     .then(PaintingInfoCommand.register())
+                    .then(InfoCommand.register())
                     .then(UnloadPaintingCommand.register())
                     .then(OverrideTargetedCommand.register())
                     .then(SaveConfigCommand.register()));
