@@ -8,6 +8,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.painting.PaintingEntity;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -44,6 +46,10 @@ public class PaintingInfoCommand {
                         ctx.getSource().sendFeedback(Text.of("Remote Painting Info:").getWithStyle(Style.EMPTY.withColor(Formatting.YELLOW).withBold(true)).getFirst());
                         ctx.getSource().sendFeedback(Text.of("R-ID: " + entry.customIdentifier()).getWithStyle(Style.EMPTY.withColor(Formatting.GREEN)).getFirst());
                         ctx.getSource().sendFeedback(Text.of("Content-Type: " + entry.contentType()).getWithStyle(Style.EMPTY.withColor(Formatting.GREEN)).getFirst());
+                        ctx.getSource().sendFeedback(Text.of("URL: " + entry.remoteUrl()).getWithStyle(Style.EMPTY
+                                .withColor(Formatting.GREEN)
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, entry.remoteUrl()))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.of("Open URL")))).getFirst());
                         return 1;
                     });
     }
